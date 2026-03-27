@@ -1,20 +1,13 @@
 #!/bin/bash
-#
-# https://github.com/P3TERX/Actions-OpenWrt
-# File name: diy-part2.sh
-# Description: OpenWrt DIY script part 2 (After Update feeds)
-#
-# Copyright (c) 2019-2024 P3TERX <https://p3terx.com>
-#
-# This is free software, licensed under the MIT License.
-# See /LICENSE for more information.
-#
 
-# Modify default IP
-#sed -i 's/192.168.1.1/192.168.50.5/g' package/base-files/files/bin/config_generate
+# 1. 修改默认 IP 为 192.168.8.1 (符合 GL.iNet 习惯)
+sed -i 's/192.168.1.1/192.168.8.1/g' package/base-files/files/bin/config_generate
 
-# Modify default theme
-#sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
+# 2. 修改主机名为 Beryl7-LEDE
+sed -i 's/OpenWrt/Beryl7-LEDE/g' package/base-files/files/bin/config_generate
 
-# Modify hostname
-#sed -i 's/OpenWrt/P3TERX-Router/g' package/base-files/files/bin/config_generate
+# 3. 设置默认主题为 Argon (如果 .config 里选了的话)
+sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
+
+# 4. 移除默认密码 (编译出的固件首次登录无需密码)
+sed -i 's/root:::0:99999:7:::/root:$1$V4UetPzk$CY6Sv6wSRCosSKqvePqgr0:18856:0:99999:7:::/g' package/base-files/files/etc/shadow
