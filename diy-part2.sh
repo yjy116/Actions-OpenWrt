@@ -13,7 +13,7 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/M
 echo "CONFIG_NET_MEDIATEK_SOC_WED=y" >> .config
 
 # 5. 移除 root 默认密码 (刷机后初次登录无需密码)
-sed -i 's/root:::0:99999:7:::/root:$1$V4UetPzk$CY6Sv6wSRCosSKqvePqgr0:18856:0:99999:7:::/g' package/base-files/files/etc/shadow
+# sed -i 's/root:::0:99999:7:::/root:$1$V4UetPzk$CY6Sv6wSRCosSKqvePqgr0:18856:0:99999:7:::/g' package/base-files/files/etc/shadow
 
 # 6. 修改版本号标识 (可选)
 sed -i "s/OpenWrt /Built by YourName $(date +%Y-%m-%d) /g" package/base-files/files/etc/banner
